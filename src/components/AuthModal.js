@@ -2,12 +2,16 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const AuthModal = ({ setShowModal, isSignUp }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
+
+  // very similar to useState variables, but also has remove feature
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   let navigate = useNavigate();
 
@@ -25,15 +29,27 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         setError("Passwords need to match!");
         return;
       }
+      console.log("posting ", email, setConfirmPassword);
       // if no error, post to server at '/signup' passing through email and password
-      const response = await axios.post("http://localhost:8000/signup", {
-        email,
-        password,
-      });
+      // saving response so we can store some information as cookies
+      const response = await axios.post(
+        // string interpolation to make url dynamic.
+        `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
+        {
+          email,
+          password,
+        }
+      );
+
+      setCookie("AuthToken", response.data.token);
+      setCookie("UserId", response.data.userId);
 
       const success = response.status === 201;
 
-      if (success) navigate("/onboarding");
+      // if creating an account, on submit navigate to onboarding page.
+      if (success && isSignUp) navigate("/onboarding");
+      // if logging in, navigate to dashboard on submit.
+      if (success && !isSignUp) navigate("/dashboard");
 
       // console.log("Make a post request to Database");
     } catch (error) {

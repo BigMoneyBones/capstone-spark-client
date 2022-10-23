@@ -20,6 +20,7 @@ const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
           // height="65px"
           className="logo"
           src={minimal ? colorLogo : whiteLogo}
+          alt=""
         />
       </div>
       {/* if not logged in, AND not minimal, display log in button. */}
