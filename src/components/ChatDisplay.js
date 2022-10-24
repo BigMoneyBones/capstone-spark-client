@@ -69,7 +69,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
         user={user}
         clickedUser={clickedUser}
         getUserMessages={getUserMessages}
-        getClicekdUserMessages={getClickedUserMessages}
+        getClickedUserMessages={getClickedUserMessages}
       />
     </>
   );

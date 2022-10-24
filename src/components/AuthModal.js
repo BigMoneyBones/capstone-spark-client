@@ -11,7 +11,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [error, setError] = useState(null);
 
   // very similar to useState variables, but also has remove feature
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(null);
 
   let navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         setError("Passwords need to match!");
         return;
       }
-      console.log("posting ", email, setConfirmPassword);
+
       // if no error, post to server at '/signup' passing through email and password
       // saving response so we can store some information as cookies
       const response = await axios.post(
@@ -58,7 +58,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   return (
     <div className="auth-modal">
       <div className="close-icon" onClick={handleClick}>
-        X
+        ⓧ
       </div>
       <h2>{isSignUp ? "CREATE ACCOUNT" : "LOG IN"}</h2>
       <p>
