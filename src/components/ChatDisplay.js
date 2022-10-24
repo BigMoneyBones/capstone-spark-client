@@ -35,7 +35,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
   useEffect(() => {
     getUserMessages();
     getClickedUserMessages();
-  }, [userMessages, clickedUserMessages]);
+  }); // Removed dependency array
 
   const messages = [];
 
@@ -49,10 +49,28 @@ const ChatDisplay = ({ user, clickedUser }) => {
     messages.push(formattedMessage);
   });
 
+  clickedUserMessages?.forEach((message) => {
+    const formattedMessage = {};
+    formattedMessage["name"] = clickedUser?.first_name;
+    formattedMessage["img"] = clickedUser?.url;
+    formattedMessage["message"] = message.message;
+    formattedMessage["timestamp"] = message.timestamp;
+    messages.push(formattedMessage);
+  });
+
+  const descendingOrderMessages = messages?.sort((a, b) =>
+    a.timestamp.localeCompare(b.timestamp)
+  );
+
   return (
     <>
-      <Chat />
-      <ChatInput />
+      <Chat descendingOrderMessages={descendingOrderMessages} />
+      <ChatInput
+        user={user}
+        clickedUser={clickedUser}
+        getUserMessages={getUserMessages}
+        getClicekdUserMessages={getClickedUserMessages}
+      />
     </>
   );
 };

@@ -3,14 +3,12 @@ import React from "react";
 import whiteLogo from "../images/spark_logo_white.png";
 import colorLogo from "../images/spark_logo_color.png";
 
-const Nav = ({ minimal, setShowModal, showModal, setIsSignUp }) => {
+const Nav = ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) => {
   const handleClick = () => {
     setShowModal(true);
     // When 'Log In' button is clicked, set to false because we are logging in, not signing up.
     setIsSignUp(false);
   };
-
-  const authToken = false;
 
   return (
     <nav>
