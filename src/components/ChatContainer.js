@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import ChatDisplay from "./ChatDisplay";
 import ChatHeader from "./ChatHeader";
 import MatchesDisplay from "./MatchesDisplay";
 
-const ChatContainer = () => {
+const ChatContainer = ({ user }) => {
+  const [clickedUser, setClickedUser] = useState(null);
+
+  console.log("clicked user: ", clickedUser);
+
   return (
     <div className="chat-container">
-      <ChatHeader />
+      <ChatHeader user={user} />
 
       <div>
-        <button className="option">Matches</button>
-        <button className="option">Chat</button>
+        <button className="option" onClick={() => setClickedUser(null)}>
+          Matches
+        </button>
+        {/* Chat will not display if matched user has not been clicked on. (chat 'disabled') */}
+        <button className="option" disabled={!clickedUser}>
+          Chat
+        </button>
       </div>
 
-      <MatchesDisplay />
+      {/* If a match has not been clicked on, show matches */}
+      {!clickedUser && (
+        <MatchesDisplay
+          matches={user.matches}
+          setClickedUser={setClickedUser}
+        />
+      )}
 
-      <ChatDisplay />
+      {/* if a match is clicked, show chat */}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
     </div>
   );
 };

@@ -123,7 +123,7 @@ const OnBoarding = () => {
                 onChange={handleChange}
                 checked={formData.gender_identity === "woman"}
               />
-              <label htmlFor="Woman-gender-identity">Woman</label>
+              <label htmlFor="woman-gender-identity">Woman</label>
 
               <input
                 id="more-gender-identity"

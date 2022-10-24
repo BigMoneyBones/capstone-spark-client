@@ -51,7 +51,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // if logging in, navigate to dashboard on submit.
       if (success && !isSignUp) navigate("/dashboard");
 
-      // console.log("Make a post request to Database");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
