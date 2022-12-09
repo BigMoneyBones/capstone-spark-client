@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./Axios";
 import React, { useEffect, useState } from "react";
 import Chat from "./Chat";
 import ChatInput from "./ChatInput";
@@ -12,7 +12,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
 
   const getUserMessages = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/messages", {
+      const response = await axios.get("/messages", {
         params: { userId: userId, correspondingUserId: clickedUserId },
       });
       setUserMessages(response.data);
@@ -23,7 +23,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
 
   const getClickedUserMessages = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/messages", {
+      const response = await axios.get("/messages", {
         params: { userId: clickedUserId, correspondingUserId: userId },
       });
       setClickedUserMessages(response.data);

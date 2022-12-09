@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Nav from "../components/Nav";
 import { useCookies } from "react-cookie";
-import axios from "axios";
+import axios from "../components/Axios";
 import { useNavigate } from "react-router-dom";
 
 const OnBoarding = () => {
@@ -27,7 +27,7 @@ const OnBoarding = () => {
     console.log("submitted");
     e.preventDefault();
     try {
-      const response = await axios.put("http://localhost:8000/user", {
+      const response = await axios.put("/user", {
         formData,
       });
       const success = response.status === 200;
@@ -38,11 +38,9 @@ const OnBoarding = () => {
   };
 
   const handleChange = (e) => {
-    console.log("e", e);
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
-    console.log("value: " + value, "name: " + name);
 
     setFormData((prevState) => ({
       ...prevState,
@@ -126,14 +124,14 @@ const OnBoarding = () => {
               <label htmlFor="woman-gender-identity">Woman</label>
 
               <input
-                id="more-gender-identity"
+                id="other-gender-identity"
                 type="radio"
                 name="gender_identity"
-                value="more"
+                value="other"
                 onChange={handleChange}
-                checked={formData.gender_identity === "more"}
+                checked={formData.gender_identity === "other"}
               />
-              <label htmlFor="more-gender-identity">More</label>
+              <label htmlFor="other-gender-identity">Other</label>
             </div>
 
             <label htmlFor="show-gender">Show gender on my profile</label>
@@ -156,7 +154,6 @@ const OnBoarding = () => {
                 checked={formData.gender_interest === "man"}
               />
               <label htmlFor="man-gender-interest">Man</label>
-
               <input
                 id="woman-gender-interest"
                 type="radio"
@@ -166,7 +163,8 @@ const OnBoarding = () => {
                 checked={formData.gender_interest === "woman"}
               />
               <label htmlFor="woman-gender-interest">Woman</label>
-
+              {/* ***** How do i make both men and women show as possible matches when
+              'everyone' preference is selected?***** */}
               <input
                 id="everyone-gender-interest"
                 type="radio"

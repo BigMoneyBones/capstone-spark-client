@@ -3,7 +3,8 @@ import TinderCard from "react-tinder-card";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import ChatContainer from "../components/ChatContainer";
-import axios from "axios";
+import axios from "../components/Axios";
+import ProfileContainer from "../components/ProfileContainer";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -14,7 +15,7 @@ const Dashboard = () => {
   const userId = cookies.UserId;
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/user", {
+      const response = await axios.get("/user", {
         params: { userId },
       });
       setUser(response.data);
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
   const getGenderedUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/gendered-users", {
+      const response = await axios.get("/gendered-users", {
         params: { gender: user?.gender_interest },
       });
 
@@ -48,7 +49,7 @@ const Dashboard = () => {
 
   const updateMatches = async (matchedUserId) => {
     try {
-      await axios.put("http://localhost:8000/addmatch", {
+      await axios.put("/addmatch", {
         userId,
         matchedUserId,
       });
@@ -106,6 +107,9 @@ const Dashboard = () => {
                 {lastDirection ? <p>You swiped {lastDirection}! </p> : <p />}
               </div>
             </div>
+          </div>
+          <div className="profile-container">
+            <ProfileContainer />
           </div>
         </div>
       )}

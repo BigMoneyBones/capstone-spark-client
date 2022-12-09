@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+import axios from "./Axios";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -32,7 +32,7 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       // saving response so we can store some information as cookies
       const response = await axios.post(
         // string interpolation to make url dynamic.
-        `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
+        `${isSignUp ? "signup" : "login"}`,
         {
           email,
           password,

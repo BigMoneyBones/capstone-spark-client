@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./Axios";
 import React from "react";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ const ChatInput = ({
     };
 
     try {
-      await axios.post("http://localhost:8000/message", { message });
+      await axios.post("/message", { message });
       getUserMessages();
       getClickedUserMessages();
       setTextArea("");
